@@ -1,0 +1,31 @@
+.img-change {
+  width: 138px;
+  height: 175px;
+  background-color: gray;
+  text-align: center;
+  p {
+    padding: 0;
+    margin: 0 auto;
+    color: white;
+    font-size: 150px;
+  }
+}
+.cast-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  &__img {
+    div {
+      margin: 0 auto;
+    }
+  }
+
+  li {
+    width: 15%;
+    margin: 15px;
+    box-shadow: 5px 5px 10px lightgrey;
+    text-align: center;
+  }
+}

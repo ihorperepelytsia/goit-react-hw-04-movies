@@ -1,0 +1,28 @@
+.movie-details {
+  display: flex;
+  padding: 15px;
+  border-bottom: 2px solid grey;
+
+  &__description {
+    margin-left: 25px;
+
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+
+      li {
+        margin: 0 15px;
+      }
+    }
+  }
+}
+
+.information {
+  padding: 15px;
+  border-bottom: 2px solid grey;
+
+  ul {
+    font-size: 18px;
+  }
+}

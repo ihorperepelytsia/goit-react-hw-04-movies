@@ -1,0 +1,19 @@
+form {
+  margin: 20px;
+
+  input {
+    font-size: 20px;
+    border: 1px solid lightgrey;
+    outline: none;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+  }
+}
