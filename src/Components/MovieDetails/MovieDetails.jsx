@@ -1,8 +1,18 @@
-import React from 'react';
-import './movieDetails.scss';
+import React, { lazy, Suspense } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
-import CastPage from '../../pages/MovieDetailsPage/CastPage/CastPage';
-import ReviewsPage from '../../pages/MovieDetailsPage/ReviewsPage/ReviewsPage';
+import './movieDetails.scss';
+
+const CastPage = lazy(() =>
+  import(
+    '../../pages/MovieDetailsPage/CastPage/CastPage' /* webpackChunkName: "CastPage" */
+  ),
+);
+const ReviewsPage = lazy(() =>
+  import(
+    '../../pages/MovieDetailsPage/ReviewsPage/ReviewsPage' /* webpackChunkName: "ReviewsPage" */
+  ),
+);
 
 const MovieDetails = ({
   original_title,
@@ -71,16 +81,36 @@ const MovieDetails = ({
         </li>
       </ul>
     </div>
-    <Switch>
-      <Route path={`${match.path}/cast`} component={CastPage} />
-      {/* <Route
-        path={`${match.path}/cast`}
-        render={props => <CastPage {...props} extraPropName={isLoading} />}
-      /> */}
-
-      <Route path={`${match.path}/reviews`} component={ReviewsPage} />
-    </Switch>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Switch>
+        <Route path={`${match.path}/cast`} component={CastPage} />
+        <Route path={`${match.path}/reviews`} component={ReviewsPage} />
+      </Switch>
+    </Suspense>
   </>
 );
+
+MovieDetails.propTypes = {
+  onGoback: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  poster_path: PropTypes.string,
+  original_title: PropTypes.string.isRequired,
+  release_date: PropTypes.string.isRequired,
+  vote_average: PropTypes.number.isRequired,
+  overview: PropTypes.string,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+    }).isRequired,
+  ).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(MovieDetails);

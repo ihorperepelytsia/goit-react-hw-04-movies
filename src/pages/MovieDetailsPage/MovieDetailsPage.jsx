@@ -1,30 +1,51 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { fetchMovieID } from '../../servises/api';
 import MovieDetails from '../../Components/MovieDetails/MovieDetails';
 
 export default class MovieDetailsPage extends Component {
-  state = { movie: null };
+  state = { movie: null, prevSearch: '' };
+
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        movieId: PropTypes.string.isRequired,
+      }),
+    }).isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.object,
+    }).isRequired,
+    history: PropTypes.object,
+  };
 
   componentDidMount() {
-    fetchMovieID(this.props.match.params.movieId).then(({ data }) =>
+    const {
+      match: { params },
+      location: { state },
+    } = this.props;
+
+    if (state) {
+      this.setState({ prevSearch: state.from });
+    }
+
+    fetchMovieID(params.movieId).then(({ data }) =>
       this.setState({ movie: data }),
     );
   }
 
   handleGoback = () => {
     const { history, location } = this.props;
+    const { prevSearch } = this.state;
 
     if (location.state) {
-      return history.push(location.state.from);
+      return history.push(prevSearch);
     }
 
-    history.push('/movies');
+    history.push('/');
   };
 
   render() {
     const { movie } = this.state;
-    // const { path, url } = this.props.match;
-    console.log(this.props);
     return (
       <>{movie && <MovieDetails {...movie} onGoback={this.handleGoback} />}</>
     );

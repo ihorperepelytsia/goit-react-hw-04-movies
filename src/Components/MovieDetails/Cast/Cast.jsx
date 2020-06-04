@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Cast.scss';
 
 const Cast = ({ actors }) => (
@@ -27,5 +28,16 @@ const Cast = ({ actors }) => (
     </ul>
   </>
 );
+
+Cast.propTypes = {
+  actors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      profile_path: PropTypes.string,
+      name: PropTypes.string,
+      character: PropTypes.string,
+    }).isRequired,
+  ).isRequired,
+};
 
 export default Cast;
