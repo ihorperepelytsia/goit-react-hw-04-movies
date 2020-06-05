@@ -17,9 +17,9 @@ export default class MoviesPage extends Component {
   };
 
   fetch(query) {
-    fetchMoviesSearch(query).then(({ data }) =>
-      this.setState({ searchMovies: data.results }),
-    );
+    fetchMoviesSearch(query)
+      .then(({ data }) => this.setState({ searchMovies: data.results }))
+      .catch(error => console.error(error));
   }
 
   componentDidMount() {
@@ -41,9 +41,8 @@ export default class MoviesPage extends Component {
     const { history } = this.props;
     const { pathname, state } = this.props.history.location;
 
-    this.fetch(query);
     history.push(`${pathname}?query=${query}`, state);
-
+    this.fetch(query);
     this.setState({ query: '' });
   };
 
@@ -64,6 +63,7 @@ export default class MoviesPage extends Component {
           />
           <button type="submit">Search</button>
         </form>
+
         {!!searchMovies && <Movies searchMovies={searchMovies} />}
       </>
     );

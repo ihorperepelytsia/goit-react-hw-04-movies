@@ -19,9 +19,9 @@ export default class ReviewsPage extends Component {
   componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    fetchMovieReviews(movieId).then(({ data }) =>
-      this.setState({ review: data.results }),
-    );
+    fetchMovieReviews(movieId)
+      .then(({ data }) => this.setState({ review: data.results }))
+      .catch(error => console.error(error));
   }
   render() {
     const { review } = this.state;

@@ -19,9 +19,9 @@ export default class CastPage extends Component {
   componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    fetchMovieCast(movieId).then(({ data }) =>
-      this.setState({ actors: data.cast }),
-    );
+    fetchMovieCast(movieId)
+      .then(({ data }) => this.setState({ actors: data.cast }))
+      .catch(error => console.error(error));
   }
 
   render() {

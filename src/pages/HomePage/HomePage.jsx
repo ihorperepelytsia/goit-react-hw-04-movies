@@ -8,9 +8,9 @@ export default class HomePage extends Component {
   };
 
   componentDidMount() {
-    fetchMoviesTrending().then(({ data }) =>
-      this.setState({ movies: data.results }),
-    );
+    fetchMoviesTrending()
+      .then(({ data }) => this.setState({ movies: data.results }))
+      .catch(error => console.error(error));
   }
 
   render() {

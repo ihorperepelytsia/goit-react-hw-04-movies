@@ -28,16 +28,16 @@ export default class MovieDetailsPage extends Component {
       this.setState({ prevSearch: state.from });
     }
 
-    fetchMovieID(params.movieId).then(({ data }) =>
-      this.setState({ movie: data }),
-    );
+    fetchMovieID(params.movieId)
+      .then(({ data }) => this.setState({ movie: data }))
+      .catch(error => console.error(error));
   }
 
   handleGoback = () => {
-    const { history, location } = this.props;
+    const { history } = this.props;
     const { prevSearch } = this.state;
 
-    if (location.state) {
+    if (prevSearch.length !== 0) {
       return history.push(prevSearch);
     }
 
